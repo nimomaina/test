@@ -37,30 +37,43 @@ def subscriber_new(request, template='registration/signup.html',):
             user.save()
             success_url = reverse('login')
 
-            return redirect(reverse('payment:process'))
+            def get_pesapal_payment_iframe(self, request):
 
- 
+                '''
+                Authenticates with pesapal to get the payment iframe src
+                '''
+                order_info = {
+                    'first_name': request.POST['first_name'],
+                    'last_name': request.POST['last_name'],
+                    'amount': 1000,
+                    'description': 'Annual Subscription',
+                    'reference': 2,  # some object id
+                    'email': request.POST['email'],
+                }
+
+                iframe_src_url = self.get_payment_url(**order_info)
+                return iframe_src_url
                     
     else:
         form = SubscriberForm()
 
     return render(request, template, {'form': form,})
 
-class PaymentView(PaymentRequestMixin):
+# class PaymentView(PaymentRequestMixin):
 
-    def get_pesapal_payment_iframe(self, request):
+#     def get_pesapal_payment_iframe(self, request):
 
-        '''
-        Authenticates with pesapal to get the payment iframe src
-        '''
-        order_info = {
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'],
-            'amount': 1000,
-            'description': 'Annual Subscription',
-            'reference': 2,  # some object id
-            'email': request.POST['email'],
-        }
+#         '''
+#         Authenticates with pesapal to get the payment iframe src
+#         '''
+#         order_info = {
+#             'first_name': request.POST['first_name'],
+#             'last_name': request.POST['last_name'],
+#             'amount': 1000,
+#             'description': 'Annual Subscription',
+#             'reference': 2,  # some object id
+#             'email': request.POST['email'],
+#         }
 
-        iframe_src_url = self.get_payment_url(**order_info)
-        return iframe_src_url
+#         iframe_src_url = self.get_payment_url(**order_info)
+#         return iframe_src_url
