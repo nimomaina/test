@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <div class="w3-container">
+        <h2>Homepage</h2>
+
+        {% if user.is_authenticated %}
+
+        <h3>Hi {{ user.username }}! Welcome to members portal</h3>
+
+        {% else %}
+        
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">login</a>
+
+        {% endif %}
+    </div>
+
+{% endblock %}
