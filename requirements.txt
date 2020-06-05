@@ -3,7 +3,7 @@ certifi==2019.6.16
 cffi==1.12.3
 chardet==3.0.4
 cryptography==2.7
-Django==2.1.10
+Django==2.2.13
 django-bootstrap==0.2.4
 django-pesapal==1.3.0
 httplib2==0.13.0
